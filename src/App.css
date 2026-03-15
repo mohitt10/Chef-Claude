@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+    background-color: antiquewhite;
+    font-family: Montserrat;
+}
+
+header {
+    background-color: gray;
+}
+
+.PageHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px;
+    font-size: 40px;   
+}
+
+.AppName {
+    font-weight: 500;
+}
+
+.PageHeader > img {
+    width: 80px;
+    margin-right: 10px;
+}
+
+.ItemAdder {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+.ItemAdder input {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-width: 300px;
+  outline: none;
+}
+
+.ItemAdder input:focus {
+  border-color: gray;
+  box-shadow: 0 0 0 2px rgba(80, 75, 74, 0.2);
+}
+
+.ItemAdder button {
+  padding: 10px 16px;
+  font-size: 14px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.ItemAdder button:hover {
+  	background-color: gray;
+}
+
+.IngredientsList > h2{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.IngredientsList > ul {
+	width: 250px;
+	margin: 0 auto;
+}
