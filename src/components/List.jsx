@@ -1,3 +1,4 @@
+import Recipe from "./Recipe"
 import React from "react";
 
 export function List() {
@@ -19,18 +20,7 @@ export function List() {
             {ingredients.length > 0 && <h2>Ingredients on hand:</h2>}
             <ul>{inge}</ul>
             </div>
-
-            <div>
-                {(ingredients.length > 3) && 
-                    <div className="Recipe-Box">
-                        <div className="recipeContainer">
-                            <h3>Ready for a recipe?</h3>
-                            <p>Generate a recipe from your list of ingredients</p>
-                        </div> 
-                        <button>Get Recipe</button>
-                    </div>
-                }
-            </div>
+            <Recipe ingred={ingredients}/>
         </>
     )
 }
