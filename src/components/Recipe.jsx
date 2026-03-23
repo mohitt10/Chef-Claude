@@ -1,7 +1,8 @@
 import { useState } from "react"
 
 export default function Recipe(props) {
-    const [reply, setReply] = useState("")
+    const [reply, setReply] = useState(null)
+    const [loading, setLoading] = useState(false)
     const prompt = `
     You are a professional chef AI.
     The user will provide an array of ingredients. Using ONLY these ingredients (you may add very common pantry items like salt, pepper, oil, or water), suggest ONE recipe.
@@ -21,42 +22,57 @@ export default function Recipe(props) {
     `
 
     async function recipeGetter() {
-        const response = await puter.ai.chat(prompt, {model: "claude-sonnet-4-6"})
-        setReply(response.message.content[0].text)
-        return (
-            <section>
-                <h2>Chef Claude Recommends:</h2>
-                <article class="suggested-recipe-container" aria-live="polite">
-                    <p>Based on the ingredients you have available, I would recommend making a simple and delicious <strong>RECIPE_NAME</strong>. Here is the recipe:</p>
-                    <h3>RECIPE_NAME</h3>
-                    <strong>Ingredients:</strong>
-                    <ul>
-                        <li>ingredient 1</li>
-                        <li>ingredient 2</li>
-                        <li>ingredient 3</li>
-                    </ul>
-                    <strong>Instructions:</strong>
-                    <ol>
-                        <li>Step 1</li>
-                        <li>Step 2</li>
-                        <li>Step 3</li>
-                    </ol>
-                </article>
-            </section>
-        )
+        try {
+            setLoading(true)
+            const response = await puter.ai.chat(prompt, {
+                model: "claude-sonnet-4-6"
+            })
+            const text = response.message.content[0].text
+            try {
+                const parsed = JSON.parse(text)
+                setReply(parsed)
+            } catch {
+                console.error("Invalid JSON:", text)
+                setReply(null)
+            }
+
+        } catch (err) {
+            console.error(err)
+            setReply(null)
+
+        } finally {
+            setLoading(false)
+        }
     }
+
     return (
         <div>
-            {(props.ingred.length > 3) && 
-                <div className="Recipe-Box">
+            {(props.ingred.length > 3 && !reply) && 
+            <div className="Recipe-Box">
                     <div className="recipeContainer">
                         <h3>Ready for a recipe?</h3>
                         <p>Generate a recipe from your list of ingredients</p>
                     </div> 
-                    <button onClick={recipeGetter}>Get Recipe</button>
-                </div>
+                    <button onClick={recipeGetter}>{loading ? "Generating..." : "Get Recipe"}</button>
+            </div>
             }
+            {reply && (
+                <div>
+                    <h2>{reply.recipename}</h2>
+                    <h4>Ingredients:</h4>
+                    <ul>
+                        {reply.ingredients.map((i, idx) => (
+                            <li key={idx}>{i}</li>
+                        ))} 
+                    </ul>
+                    <h4>Instructions:</h4>
+                    <ol>
+                        {reply.instructions.map((step, idx) => (
+                            <li key={idx}>{step}</li>
+                        ))}
+                    </ol>
+                </div>
+            )}
         </div>
-
     )
 }
