@@ -35,4 +35,4 @@ npm run dev
 ## 🌐 Live Demo
 
 Check out the live app here:  
-👉 https://your-site-link.vercel.app
+👉 https://recipe-claude0.netlify.app/
