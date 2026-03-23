@@ -31,6 +31,7 @@ export default function Recipe(props) {
             try {
                 const parsed = JSON.parse(text)
                 setReply(parsed)
+                props.onRecipeGenerated(true)
             } catch {
                 console.error("Invalid JSON:", text)
                 setReply(null)
@@ -57,7 +58,7 @@ export default function Recipe(props) {
             </div>
             }
             {reply && (
-                <div>
+                <div className="Recipe">
                     <h2>{reply.recipename}</h2>
                     <h4>Ingredients:</h4>
                     <ul>

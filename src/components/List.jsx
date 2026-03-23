@@ -3,6 +3,7 @@ import React from "react";
 
 export function List() {
     const [ingredients, updateIngredients] = React.useState([]);
+    const [recipeGenerated, setRecipeGenerated] = React.useState(false);
     const inge = ingredients.map(ing => <li key={ing}>{ing}</li>)
 
     function ClickHandle(formData) {
@@ -12,15 +13,19 @@ export function List() {
 
     return (
         <>  
-            <form action={ClickHandle} className="ItemAdder">
-                <input name="ingredient" placeholder="eg. oregano"/>        
-                <button>+ Add Ingredient</button>
-            </form>
-            <div className="IngredientsList">
-            {ingredients.length > 0 && <h2>Ingredients on hand:</h2>}
-            <ul>{inge}</ul>
-            </div>
-            <Recipe ingred={ingredients}/>
+            {!recipeGenerated && (
+                <form action={ClickHandle} className="ItemAdder">
+                    <input name="ingredient" placeholder="eg. oregano"/>        
+                    <button>+ Add Ingredient</button>
+                </form>
+            )}
+            {!recipeGenerated && (
+                <div className="IngredientsList">
+                {ingredients.length > 0 && <h2>Ingredients on hand:</h2>}
+                <ul>{inge}</ul>
+                </div>
+            )}
+            <Recipe ingred={ingredients} onRecipeGenerated={setRecipeGenerated}/>
         </>
     )
 }

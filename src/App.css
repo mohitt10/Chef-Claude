@@ -95,3 +95,31 @@ header {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.Recipe {
+    background-color: white;
+    margin: 20px auto;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.Recipe h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.Recipe h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.Recipe ul, .Recipe ol {
+    padding-left: 20px;
+}
+
+.Recipe li {
+    margin-bottom: 5px;
+}
+
